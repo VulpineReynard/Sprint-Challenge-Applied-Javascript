@@ -4,9 +4,8 @@ class Carousel {
         this.leftButton = carousel.querySelector('.left-button');
         this.rightButton = carousel.querySelector('.right-button');
         this.images = carousel.querySelectorAll('img');
-        this.imgData = this.images.forEach(img => img.dataset.img);
-        this.currentImg = carousel.querySelector(`img[data-img='${this.imgData}']`);
-        console.log(this.currentImg);
+        this.index = 0;
+        console.log(this.images.length);
         console.log(this.leftButton);
         console.log(this.rightButton);
 
@@ -14,10 +13,36 @@ class Carousel {
         this.leftButton.addEventListener('click', () => this.slideLeft());
     }
     slideRight() {
-        this.images.forEach(img => img.style.display = 'none');
+        if(this.index === 3) {
+            this.index = 0;
+            let currImg = this.images[this.index];
+            this.images.forEach(img => img.classList.add('img-hidden'));
+            currImg.classList.remove('img-hidden');
+            TweenMax.from(currImg, 1, {opacity: 0});
+            console.log(currImg);
+        } else {
+            this.index++;
+            let currImg = this.images[this.index];
+            this.images.forEach(img => img.classList.add('img-hidden'));
+            currImg.classList.remove('img-hidden');
+            TweenMax.from(currImg, 1, {opacity: 0});
+            console.log(currImg);
+        }
     }
     slideLeft() {
-
+        if(this.index === 0) {
+            this.index = 3;
+            let currImg = this.images[this.index];
+            this.images.forEach(img => img.classList.add('img-hidden'));
+            this.images[this.index].classList.remove('img-hidden');
+            TweenMax.from(currImg, 1, {opacity: 0});
+        } else {
+            this.index--;
+            let currImg = this.images[this.index];
+            this.images.forEach(img => img.classList.add('img-hidden'));
+            this.images[this.index].classList.remove('img-hidden');
+            TweenMax.from(currImg, 1, {opacity: 0});
+        }
     }
 }
 
